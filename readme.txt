@@ -10,4 +10,6 @@ ORM:
 2.npm install sequelize --save 
 
 Redis:
-npm install redis --save
+1.npm install redis --save
+2.npm install koa-redis --save   连接reids工具
+3.npm install koa-generic-session --save   生成session工具
