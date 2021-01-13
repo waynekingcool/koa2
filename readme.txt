@@ -13,3 +13,6 @@ Redis:
 1.npm install redis --save
 2.npm install koa-redis --save   连接reids工具
 3.npm install koa-generic-session --save   生成session工具
+
+jest(单元测试):
+1.npm install jest --save-dev
