@@ -16,3 +16,22 @@ Redis:
 
 jest(单元测试):
 1.npm install jest --save-dev
+
+jwt:
+1.npm install koa-jwt --save
+2.在app.js中引入
+    const jwt = require('koa-jwt')
+    app.use(jwt({
+        secret: 'wanbin'
+    }).unless({
+        path: [/^\/users\/login/]   //忽略那些路由需要jwt
+    }))
+3.安装加密工具 npm install jsonwebtoken --save.
+4.在 *.js文件中引入
+    const jwt = require('jsonwebtoken')
+    // 需要加密的用户信息, 秘钥, 过期时间1小时
+    let token = jwt.sign(userInfo, SECRET, { expiresIn: '1h' })
+5.解密
+    const util = require('util') 自带工具
+    const verify = util.promisify(jwt.verify)  将callback转为promise
+    const payload = await verify(token.split(' ')[1], SECRET)  解密后即为用户信息
