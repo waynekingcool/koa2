@@ -13,7 +13,7 @@ const { REDIS_CONF } = require('./conf/db')
 
 // 路由
 const index = require('./routes/index')
-const users = require('./routes/users')
+const userViewRouter = require('./routes/view/user')
 const errorViewRouter = require('./routes/view/error')
 
 const { isProd } = require('./utils/env')
@@ -58,7 +58,7 @@ app.use(session({
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 // 404路由注册到最下面
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
