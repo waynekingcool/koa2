@@ -2,7 +2,7 @@
  * @description 失败信息集合,包括errno message
  */
 
-odule.exports = {
+module.exports = {
     // 用户名已存在
     registerUserNameExistInfo: {
         errno: 10001,
