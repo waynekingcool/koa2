@@ -2,8 +2,8 @@
  * @description 校验工具 npm install ajv --save
  */
 
-const Ajv = require('ajv')
-const ajv = new Ajv()
+const Ajv = require('ajv').default
+const ajv = new Ajv({})
 
 /**
  * json schema 校验
