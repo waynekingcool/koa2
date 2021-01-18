@@ -135,10 +135,16 @@ async function changePassword(userName, password, newPassword) {
     return new ErrorModel(changeInfoFailInfo)
 }
 
+async function logout(ctx) {
+    delete ctx.session.userInfo
+    return new SuccessModel()
+}
+
 module.exports = {
     isExist,
     register,
     login,
     changeInfo,
-    changePassword
+    changePassword,
+    logout
 }
