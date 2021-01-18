@@ -39,3 +39,6 @@ jwt:
 图片上传:
 1.npm install formidable-upload-koa --save,该包用于上传文件.
 2.npm install fs-extra --save,该包为fs模块的扩展.
+
+xss攻击,防止js代码侵入:
+1.npm install xss --save
