@@ -5,7 +5,7 @@ router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
     title: 'Hello Koa 2!',
     isMe: true,
-    blogList: [
+    blogData: [
       {
         id: 1,
         title: 'aaa'
