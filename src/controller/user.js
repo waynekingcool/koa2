@@ -2,12 +2,13 @@
  * @description user controller
  */
 
-const { getUserInfo, createUser } = require('../services/user')
+const { getUserInfo, createUser, updateUser } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const {
     registerUserNameNotExistInfo,
     registerUserNameExistInfo,
-    loginFailInfo
+    loginFailInfo,
+    changeInfoFailInfo
     } = require('../model/ErrorInfo')
 const { doCrypto } = require('../utils/cryp')
 
@@ -73,8 +74,45 @@ async function login(ctx, userName, password) {
     return new SuccessModel()
 }
 
+/**
+ * 修改个人信息
+ * @param {Object} ctx ctx
+ * @param {string} nickName 用户名 
+ * @param {string} city 城市 
+ * @param {string} picture 头像 
+ */
+async function changeInfo(ctx, { nickName, city, picture }) {
+    const { userName } = ctx.session.userInfo
+    if (!nickName) {
+        nickName = userName
+    }
+
+    const result = await updateUser(
+        {
+            newNickName: nickName,
+            newCity: city,
+            newPicture: picture
+        },
+        { userName }
+    )
+
+    if (result) {
+        // 执行成功
+        Object.assign(ctx.session.userInfo, {
+            nickName,
+            city,
+            picture
+        })
+        return new SuccessModel()
+    }
+    // 失败
+    return new ErrorModel(changeInfoFailInfo)
+
+}
+
 module.exports = {
     isExist,
     register,
-    login
+    login,
+    changeInfo
 }
