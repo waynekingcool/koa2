@@ -1,3 +1,4 @@
+const path = require('path')
 const Koa = require('koa')
 const app = new Koa()
 const views = require('koa-views')
@@ -7,6 +8,9 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 // session
 const session = require('koa-generic-session')
+
+const koaStatic = require('koa-static')
+
 // redisStroe
 const redisStroe = require('koa-redis')
 const { REDIS_CONF } = require('./conf/db')
@@ -15,6 +19,7 @@ const { SESSION_SECRET_KEY } = require('./conf/secretKeys')
 
 // 路由
 const index = require('./routes/index')
+const utilsApiRouter = require('./routes/api/utils')
 const userViewRouter = require('./routes/view/user')
 const userApiRouter = require('./routes/api/user')
 const errorViewRouter = require('./routes/view/error')
@@ -37,7 +42,9 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/public'))
+// app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
+app.use(koaStatic(path.join(__dirname, '../uploadFiles')))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
@@ -61,6 +68,7 @@ app.use(session({
 
 // routes
 app.use(index.routes(), index.allowedMethods())
+app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 // 404路由注册到最下面

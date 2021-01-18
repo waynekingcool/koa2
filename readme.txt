@@ -35,3 +35,7 @@ jwt:
     const util = require('util') 自带工具
     const verify = util.promisify(jwt.verify)  将callback转为promise
     const payload = await verify(token.split(' ')[1], SECRET)  解密后即为用户信息
+
+图片上传:
+1.npm install formidable-upload-koa --save,该包用于上传文件.
+2.npm install fs-extra --save,该包为fs模块的扩展.
