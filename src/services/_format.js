@@ -2,7 +2,8 @@
  * @description 数据格式化
  */
 
- const { DEFAULT_PICTURE } = require('../conf/constant')
+const { DEFAULT_PICTURE } = require('../conf/constant')
+const { timeFormat } = require('../utils/dt')
 
 /**
   * 用户默认头像,有_表示不会输出出去,而是被其他方法调用
@@ -33,6 +34,34 @@ function formatUser(list) {
     return _formatUserPicture(list)
 }
 
+/**
+ * 格式化数据的时间
+ * @param {Object}} obj 微博数据
+ */
+function _formatDBTime(obj) {
+    obj.createdAtFormat = timeFormat(obj.createdAt)
+    obj.updatedAtFormat = timeFormat(obj.updatedAt)
+    return obj
+}
+
+/**
+ * 格式化微博信息
+ * @param {Array | Object} list 微博列表或者单个对象
+ */
+function formatBlog(list) {
+    if (list == null) {
+        return list
+    }
+
+    if (list instanceof Array) {
+        // 数组
+        return list.map(_formatDBTime)
+    }
+    //对象
+    return _formatDBTime(list)
+}
+
 module.exports = {
-    formatUser
+    formatUser,
+    formatBlog
 }

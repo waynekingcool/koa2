@@ -42,3 +42,10 @@ jwt:
 
 xss攻击,防止js代码侵入:
 1.npm install xss --save
+
+
+时间格式处理:
+1.npm install date-fns --save
+
+ejs模板:
+1.npm install ejs --save
