@@ -49,3 +49,11 @@ xss攻击,防止js代码侵入:
 
 ejs模板:
 1.npm install ejs --save
+
+SELECT
+     `user`.`id`, `user`.`userName`, `user`.`nickName`, `user`.`picture`, `userRelations`.`id` AS `userRelations.id`, `userRelations`.`userId` AS `userRelations.userId`, `userRelations`.`followerId` AS `userRelations.followerId`, `userRelations`.`createdAt` AS `userRelations.createdAt`, `userRelations`.`updatedAt` AS `userRelations.updatedAt`
+FROM
+     `users` AS `user`
+INNER JOIN `userRelations` AS `userRelations` ON `user`.`id` = `userRelations`.`userId` AND `userRelations`.`followerId` = 1
+ORDER BY
+ `user`.`id` DESC;

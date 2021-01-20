@@ -7,6 +7,7 @@ const { loginRedirect } = require('../../middlewares/loginChecks')
 const { getProfileBlogList } = require('../../controller/blog-profile')
 const { isExist } = require('../../controller/user')
 const { getSquareBlogList } = require('../../controller/blog-square')
+const { getFans } = require('../../controller/user-relation')
 
 // 首页
 router.get('/', loginRedirect, async (ctx, next) => {
@@ -44,33 +45,41 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
     const result = await getProfileBlogList(curUserName, 0)
     const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
 
-    // await ctx.render('profile', {
-    //     blogData: {
-    //         isEmpty,
-    //         blogList,
-    //         pageSize,
-    //         pageIndex,
-    //         count
-    //     },
-    //     userData: {
-    //         userInfo: curUserInfo,
-    //         isMe
-    //     }
-    // })
+    // 获取粉丝
+    const fansResult = await getFans(curUserInfo.id)
+    const { count: fansCount, userList: fansList } = fansResult.data
 
-    ctx.body = {
-            blogData: {
-                isEmpty,
-                blogList,
-                pageSize,
-                pageIndex,
-                count
-            },
-            userData: {
-                userInfo: curUserInfo,
-                isMe
+    await ctx.render('profile', {
+        blogData: {
+            isEmpty,
+            blogList,
+            pageSize,
+            pageIndex,
+            count
+        },
+        userData: {
+            userInfo: curUserInfo,
+            isMe,
+            fansData: {
+                count: fansCount,
+                list: fansList
             }
         }
+    })
+
+    // ctx.body = {
+    //         blogData: {
+    //             isEmpty,
+    //             blogList,
+    //             pageSize,
+    //             pageIndex,
+    //             count
+    //         },
+    //         userData: {
+    //             userInfo: curUserInfo,
+    //             isMe
+    //         }
+    //     }
 
 })
 
