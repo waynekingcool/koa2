@@ -77,10 +77,36 @@
 // console.log(arr);
 // console.log(newArr);
 
-let arr = [1, 2, { val: 4 }]
-let newArr = arr.slice()
-console.log(arr);
-console.log(newArr);
+// let arr = [1, 2, { val: 4 }]
+// let newArr = arr.slice()
+// console.log(arr);
+// console.log(newArr);
+
+
+// 继承
+// function Parent1() {
+//     this.name = 'parent1'
+//     this.play = [1, 2, 3]
+// }
+
+// function Child() {
+//     this.type = 'child2'
+// }
+
+// Child.prototype = new Parent1()
+// console.log(new Child());
+
+var a = {}
+console.log(a);
+console.log(a.prototype);
+console.log(a.__proto__);
+
+var b = function() {}
+console.log(b.prototype);
+console.log(b.__proto__);
+
+
+
 
 
 
