@@ -14,12 +14,12 @@ seq.authenticate().then(() => {
 })
 
 // 执行同步 true的话则强制覆盖掉已有table
-// seq.sync({ force: true}).then(() => {
-//     console.log('同步已完成')
-//     process.exit()
-// })
-
-seq.sync().then(() => {
+seq.sync({ force: true}).then(() => {
     console.log('同步已完成')
     process.exit()
 })
+
+// seq.sync().then(() => {
+//     console.log('同步已完成')
+//     process.exit()
+// })

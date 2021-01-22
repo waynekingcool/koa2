@@ -6,6 +6,7 @@ const seq = require('../seq')
 const { TEXT, STRING, INTEGER } = require('../type')
 
 const UserRelation = seq.define('userRelation', {
+    // 当前用户
     userId: {
         type: INTEGER,
         allowNull: false,

@@ -10,12 +10,19 @@ Blog.belongsTo(User, {
    foreignKey: 'userId'
 })
 
+// UserRelation属于 User
 UserRelation.belongsTo(User, {
    foreignKey: 'followerId'
 })
 
+// User有多个UserRelation
 User.hasMany(UserRelation, {
    foreignKey: 'userId'
+})
+
+Blog.belongsTo(UserRelation, {
+   foreignKey: 'userId',
+   targetKey: 'followerId'
 })
 
 module.exports = {

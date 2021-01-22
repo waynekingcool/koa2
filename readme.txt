@@ -51,9 +51,9 @@ ejs模板:
 1.npm install ejs --save
 
 SELECT
-     `user`.`id`, `user`.`userName`, `user`.`nickName`, `user`.`picture`, `userRelations`.`id` AS `userRelations.id`, `userRelations`.`userId` AS `userRelations.userId`, `userRelations`.`followerId` AS `userRelations.followerId`, `userRelations`.`createdAt` AS `userRelations.createdAt`, `userRelations`.`updatedAt` AS `userRelations.updatedAt`
+     `userRelation`.`id`, `userRelation`.`userId`, `userRelation`.`followerId`, `userRelation`.`createdAt`, `userRelation`.`updatedAt`, `user`.`id` AS `user.id`, `user`.`userName` AS `user.userName`, `user`.`nickName` AS `user.nickName`, `user`.`picture` AS `user.picture` 
 FROM
-     `users` AS `user`
-INNER JOIN `userRelations` AS `userRelations` ON `user`.`id` = `userRelations`.`userId` AND `userRelations`.`followerId` = 1
-ORDER BY
- `user`.`id` DESC;
+     `userRelations` AS `userRelation`
+LEFT OUTER JOIN `users` AS `user` ON `userRelation`.`followerId` = `user`.`id` 
+WHERE 
+    `userRelation`.`userId` = 1 ORDER BY `userRelation`.`id` DESC;
